@@ -1,13 +1,18 @@
 # USA Power Outage Analysis
 [The dataset I will be using](https://engineering.purdue.edu/LASCI/research-data/outages/outagerisks) covers major outages observed in the continental U.S. These data contain geographical location, regional climatic info, land-use characteristics, electricity consumption patterns, and economic characteristis. I will be using these data to answer a fundamental question about outages in the continental United States. 
+
+
 # Do states with a high number of outages per capita have higher instances of intentional attack?
 Now, this question may sound a little bit contrived at first, but it attempts to distinguish a relevant issue from the umbrella-term *power outage*. It brings us one step closer to understanding why some states have disproportionately high instances of power outage for their population. I hope this incentivises you enough to read on.
+
+
 ### Relevant Information About these Data
 >
 > Shape: 1534 rows × 54 columns
 >
 > Relevant Columns: U.S._STATE, CAUSE.CATEGORY
 >
+
 
 ### DF Head with Relevant Columns
 |   YEAR |   MONTH | U.S._STATE   | CAUSE.CATEGORY     |
@@ -30,16 +35,21 @@ pd.options.plotting.backend = 'plotly'
 > I opted for plotly as pandas' plotting backend over matplotlib since it has a more modern look and it's functions are better suited to this project data visualization needs.
 >  
 
+
 # Data Cleaning
 Fortunately, data cleaning was relatively simple for this project. 
+
 ## Step 1. Pruning by Hand 
 I downloaded all the data from [this link](https://engineering.purdue.edu/LASCI/research-data/outages/outagerisks) and opened it with numbers on my Mac. Then, I simply removed the first column, which contained unnecessary descriptive information about the dataset, and the first three rows, which contained no data with the first column removed. Additionally, I removed the column beneath the row containing column names (column 7 in the unchanged file); it contained units for columns with quantitative data. Once I was done pruning the dataset by hand I exported it as a CSV file and saved it to my project folder. 
+
+
 ## Setp 2. Reformatting Outage Start and Restoration Dates and Times
 I first imported the data like so:
 ```python
 outage_fp = os.path.join('data', 'outage.csv')
 outage = pd.read_csv(outage_fp)
 ```
+
 #### The relevant columns to modify were: <br>
 | OUTAGE.START.DATE         | OUTAGE.START.TIME   | OUTAGE.RESTORATION.DATE    | OUTAGE.RESTORATION.TIME   |
 |:--------------------------|:--------------------|:---------------------------|:--------------------------|
@@ -82,3 +92,12 @@ outage['OUTAGE.RESTORATION'] = (outage['OUTAGE.RESTORATION.DATE'] + ", " + outag
 outage = outage.drop(columns=['OUTAGE.START.DATE', 'OUTAGE.START.TIME', 'OUTAGE.RESTORATION.DATE', 'OUTAGE.RESTORATION.TIME'])
 ```
 
+#### Output of these operations:
+|   OUTAGE.RESTORATION |   OUTAGE.START |
+|---------------------:|---------------:|
+|          1.30972e+18 |    1.30954e+18 |
+|          1.39983e+18 |    1.39983e+18 |
+|          1.2883e+18  |    1.28812e+18 |
+|          1.34023e+18 |    1.34008e+18 |
+|          1.43729e+18 |    1.43718e+18 |
+The values above are of type datetime64[ns].
