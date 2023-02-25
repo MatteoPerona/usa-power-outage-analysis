@@ -136,6 +136,6 @@ The EDA I will cover here is abridged to focus on points relevant to the questio
 
 ### Warm Up
 To start our EDA let's do some univariate analysis on columns that aren't necessarily related to out question to warm up out analytical muscles.
-<iframe src="assets/num-outages-each-year.html" width=800 height=600 frameBorder=0></iframe> <br>
-<iframe src="assets/num-outages-by-month.html" width=800 height=600 frameBorder=0></iframe> <br>
+<iframe src="assets/num-outages-each-year.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/num-outages-by-month.html" width=800 height=600 frameBorder=0></iframe>
 [num](assets/num-outages-each-year.html)
