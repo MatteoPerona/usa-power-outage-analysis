@@ -200,5 +200,8 @@ The plot above shows the number of missing values in each column in outages whic
 ## NMAR Analysis
 One column which jumps out as being NMAR (not missing at random) is the HURRICANE.NAMES column since when collecting the data if the outage did not occur as a result of a hurricane there will not be a name to report. In this way thet missingness is dependent of the column itself and also on columns like CAUSE.CATEGORY.DETAILS of CAUSE.CATEGORY which both contain information about the cause of the outage. 
 
+## Missingness Dependency
+
+
 
 # Hypothesis Testing
