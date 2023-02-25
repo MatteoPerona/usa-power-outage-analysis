@@ -250,7 +250,7 @@ df_indep.plot(
 observed_tvd = df_indep.diff(axis=1).iloc[:, -1].abs().sum() / 2
 observed_tvd
 ```
-**Observed TVD**: Observed TVD
+**Observed TVD**: 0.41067323382726845
 
 #### Simulation
 ```py
@@ -333,7 +333,7 @@ fig
 ```py
 observed_tvd = df.diff(axis=1).iloc[:, -1].abs().sum() / 2
 ```
-**Out: **: 0.48123557430777736
+**Out:**: 0.48123557430777736
 
 ## Permutations
 ### Code
@@ -376,5 +376,6 @@ Our p-value 0.0 is less than our significance level of 0.05, so we reject the nu
 >
 >Do states with a high number of outages per capita have higher instances of intentional attack?
 >
+
 While we can say nothing for certain, the permutation tests above indicate that there is likely a relationship between the number of outages per capita and seeing higher instances of intentional attack. 
 
