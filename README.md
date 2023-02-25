@@ -36,11 +36,11 @@ Fortunately, data cleaning was relatively simple for this project.
 I downloaded all the data from [this link](https://engineering.purdue.edu/LASCI/research-data/outages/outagerisks) and opened it with numbers on my Mac. Then, I simply removed the first column, which contained unnecessary descriptive information about the dataset, and the first three rows, which contained no data with the first column removed. Additionally, I removed the column beneath the row containing column names (column 7 in the unchanged file); it contained units for columns with quantitative data. Once I was done pruning the dataset by hand I exported it as a CSV file and saved it to my project folder. 
 ## Setp 2. Reformatting Outage Start and Restoration Dates and Times
 I first imported the data like so:
-`
+```python
 outage_fp = os.path.join('data', 'outage.csv')
 outage = pd.read_csv(outage_fp)
-`
-The relevant columns to modify were: <br>
+```
+#### The relevant columns to modify were: <br>
 | OUTAGE.START.DATE         | OUTAGE.START.TIME   | OUTAGE.RESTORATION.DATE    | OUTAGE.RESTORATION.TIME   |
 |:--------------------------|:--------------------|:---------------------------|:--------------------------|
 | Friday, July 01, 2011     | 5:00:00 PM          | Sunday, July 03, 2011      | 8:00:00 PM                |
