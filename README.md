@@ -52,7 +52,7 @@ The relevant columns to modify were: <br>
 I wanted to combine the outage start and restoration dates with their respective times and convert them to timestamps assigning these new series to two columns -- 'OUTAGE.START' and 'OUTAGE.RESTORATION' respectively -- while dropping the old ones. The process went as follows.<br><br>
 
 
-##### First, I added the series' date and time strings together:
+#### First, I added the series' date and time strings together:
 ``` python
 (outage['OUTAGE.START.DATE'] + ", " + outage['OUTAGE.START.TIME'])
 ```
