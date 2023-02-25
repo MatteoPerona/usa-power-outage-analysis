@@ -166,6 +166,13 @@ It seems as thought most instentional attacks are vandalism. This gives less inf
 ## States and Causes Together
 <iframe src="assets/cause-state.html" width=800 height=600 frameBorder=0></iframe>
 This is interesting, we see the same plot from the *Outages by Location* section, but with more context. Let's look at this plot adjusted for population as we did before, but first, lets also look at the distributions of Outage Causes for each State by normalizing the rows.
+| U.S._STATE   |   equipment failure |   fuel supply emergency |   intentional attack |   islanding |   public appeal |   severe weather |   system operability disruption |
+|:-------------|--------------------:|------------------------:|---------------------:|------------:|----------------:|-----------------:|--------------------------------:|
+| Alaska       |                   1 |                       0 |                    0 |           0 |               0 |                0 |                               0 |
+| South Dakota |                   0 |                       0 |                    0 |           2 |               0 |                0 |                               0 |
+| North Dakota |                   0 |                       1 |                    0 |           0 |               1 |                0 |                               0 |
+| Montana      |                   0 |                       0 |                    1 |           2 |               0 |                0 |                               0 |
+| Mississippi  |                   0 |                       0 |                    3 |           0 |               0 |                0 |                               1 |
 <iframe src="assets/cause-state-norm.html" width=800 height=600 frameBorder=0></iframe>
 This confirms our results from above; we are mostly seeing severe weather and intentional attack as the primary causes. Now, let's scale these values to understand the data per capita. 
 <iframe src="assets/cause-state-per-capita.html" width=800 height=600 frameBorder=0></iframe>
@@ -176,4 +183,6 @@ It seems like we're onto something. Hoverver, there could still be confounders. 
 <iframe src="assets/intentional-attack-scatter-total-no-delaware.html" width=800 height=600 frameBorder=0></iframe>
 Correlation between total outages per capidta and severe: 0.8246248841759625 <br>
 We can see that the correlation still holds, albeit, to a lesser degree. 
+
+
 
