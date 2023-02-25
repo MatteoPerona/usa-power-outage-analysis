@@ -170,7 +170,7 @@ cause_by_state = pd.pivot_table(outage, columns=['CAUSE.CATEGORY'], index=['U.S.
 cause_by_state = cause_by_state.assign(total=cause_by_state.sum(axis=1))
 cause_by_state = cause_by_state.sort_values(by='total').drop(columns=['total'])
 ```
-### Output
+#### Output dataframe head:
 | U.S._STATE   |   equipment failure |   fuel supply emergency |   intentional attack |   islanding |   public appeal |   severe weather |   system operability disruption |
 |:-------------|--------------------:|------------------------:|---------------------:|------------:|----------------:|-----------------:|--------------------------------:|
 | Alaska       |                   1 |                       0 |                    0 |           0 |               0 |                0 |                               0 |
