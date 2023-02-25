@@ -100,4 +100,5 @@ outage = outage.drop(columns=['OUTAGE.START.DATE', 'OUTAGE.START.TIME', 'OUTAGE.
 |          1.2883e+18  |    1.28812e+18 |
 |          1.34023e+18 |    1.34008e+18 |
 |          1.43729e+18 |    1.43718e+18 |
+
 The values above are of type datetime64[ns].
