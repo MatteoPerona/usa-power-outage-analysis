@@ -128,3 +128,5 @@ This final step of cleaning was the most painless because the data were already 
 | PCT_WATER_INLAND      | float64        |
 | OUTAGE.START          | datetime64[ns] |
 | OUTAGE.RESTORATION    | datetime64[ns] |
+
+I went through each column and made sure that the data types were appropriate for the values in each. I did not have to make any changes to datatypes. Next, I looked through the unique values for each column using `outage.apply(lambda col: col.unique())` to find any nan placeholders like '-' and to, again, make sure that the data types for each column suited the values. I would include the output here, but it was far too long and unappealing (please visit the notebook if you are curious).
