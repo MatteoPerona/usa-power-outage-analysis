@@ -151,7 +151,7 @@ This plot shows the number of outages that were obseved in each state. It is not
 Ah! Much more interesting. Our first bivariate plot! It seems as though Delaware is has by far the most outages per person. More than double DC (the second highest). Why might Delaware's number of outages be so disproportionately high given their population? 
 <br><br>
 Side Note: Texas and California (the top two of the previous plot) are middle of the pack. This is a good example for the importance of bivariate analysis. Also, note that the second highest is DC which is very clse to Delaware. 
-## Outages by Category 
+
 
 ## Outages by Cause Category
 <iframe src="assets/outages-cause.html" width=800 height=600 frameBorder=0></iframe>
