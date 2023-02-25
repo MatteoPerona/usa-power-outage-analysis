@@ -243,7 +243,7 @@ df_indep.plot(
 | severe weather                | 0.541863  | 0.397028  |
 | system operability disruption | 0.0348071 | 0.191083  |
 #### Output Plot
-<iframe src="assets/observed-dist-dependent.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/observed-dist-dependent.html" width=800 height=500 frameBorder=0></iframe>
 
 #### Calculate Observed TVD
 ```py
