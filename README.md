@@ -201,7 +201,95 @@ The plot above shows the number of missing values in each column in outages whic
 One column which jumps out as being NMAR (not missing at random) is the HURRICANE.NAMES column since when collecting the data if the outage did not occur as a result of a hurricane there will not be a name to report. In this way thet missingness is dependent of the column itself and also on columns like CAUSE.CATEGORY.DETAILS of CAUSE.CATEGORY which both contain information about the cause of the outage. 
 
 ## Missingness Dependency
+In this section we will be showing that the CAUSE.CATEGORY.DETAILS column is MAR dependent on the CAUSE.CATEGORY column using permutation tests. We will also *attempt* and fail at finding a column that it is independent from using permutation tests.
+### Testing Dependent Case 
+First we will prove depencency between CAUSE.CATEGORY.DETAILS.
 
+#### Hypothesis
+Null Hypothesis: The distribution of CAUSE.CATEGORY.DETAIL is the same when CAUSE.CATEGORY name is missing and when it is not missing<br>
+Alt Hypothesis: The distribution of CAUSE.CATEGORY.DETAIL is different when CAUSE.CATEGORY name is missing as opposed to when it is not missing
+
+#### Code for generating the observed distributions 
+```py
+# Variables for columns we are testing to enable hot switching
+indep_var = 'CAUSE.CATEGORY'
+q_var = 'CAUSE.CATEGORY.DETAIL'
+
+# generate pivot table to display missingness of q_var with relation to indep_var
+df_indep = (
+    outage
+    .assign(missing = outage[q_var].isna())
+    .pivot_table(index=indep_var, columns='missing', aggfunc='size')
+).fillna(0)
+
+# normalize the df
+df_indep = df_indep / df_indep.sum()
+# plot the distribution
+df_indep.plot(
+    kind='barh', 
+    title='Observed Distribution of Hurricane Names Conditional on Cause Category Detail',
+    barmode='group',
+    height=1100  
+    )
+```
+#### Output DF
+| CAUSE.CATEGORY                |     False |      True |
+|:------------------------------|----------:|----------:|
+| equipment failure             | 0.0451552 | 0.0254777 |
+| fuel supply emergency         | 0.0301035 | 0.0403397 |
+| intentional attack            | 0.348071  | 0.101911  |
+| islanding                     | 0         | 0.0976645 |
+| public appeal                 | 0         | 0.146497  |
+| severe weather                | 0.541863  | 0.397028  |
+| system operability disruption | 0.0348071 | 0.191083  |
+#### Output Plot
+<iframe src="assets/observed-dist-dependent.html" width=800 height=600 frameBorder=0></iframe>
+
+#### Calculate Observed TVD
+```py
+observed_tvd = df_indep.diff(axis=1).iloc[:, -1].abs().sum() / 2
+observed_tvd
+```
+**Observed TVD**: Observed TVD
+
+#### Simulation
+```py
+# number of times to repeat permutations and calculate TVD
+n_repetitions = 500
+shuffled = outage.copy()
+
+tvds = []
+for _ in range(n_repetitions):
+    # Create permutation
+    shuffled[indep_var] = np.random.permutation(shuffled[indep_var])
+    
+    # Computing and storing the TVD.
+    pivoted = (
+        shuffled
+        .assign(missing = shuffled[q_var].isna())
+        .pivot_table(index=indep_var, columns='missing', aggfunc='size')
+        .apply(lambda x: x / x.sum())
+    )
+    
+    tvd = pivoted.diff(axis=1).iloc[:, -1].abs().sum() / 2
+    tvds.append(tvd)
+```
+#### Plotting Empirical Distribution of Calculated TVDs
+<iframe src="assets/empirical-distribution-TVD-dependent.html" width=800 height=600 frameBorder=0></iframe>
+
+#### Calculating p-value
+```py
+np.mean(np.array(tvds) >= observed_tvd)
+```
+**Out:** 0.0
+
+#### Conclusions
+P-val is less than our significance level of 0.05, so we reject the null hypothesis. Thet CAUSE.CATEGORY.DETAILS column is dependent on CAUSE.CATEGORY. 
+
+### Testing Independent Case
+>
+>Note: I could not find an independent case for CAUSE.CATEGORY.DETAILS, so this section will instead go towards proving another instance of dependence. 
+> 
 
 
 # Hypothesis Testing
