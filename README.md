@@ -136,39 +136,39 @@ The EDA I will cover here is abridged to focus on points relevant to the questio
 
 ## Warm Up
 To start our EDA let's do some univariate analysis on columns that aren't necessarily related to out question to warm up out analytical muscles.
-<iframe src="assets/num-outages-each-year.html" width=1100 height=600 frameBorder=0></iframe>
+<iframe src="assets/num-outages-each-year.html" width=800 height=600 frameBorder=0></iframe>
 Here we can see the distribution of outages across years from 2000-2016. It looks like 2011 had the most outages by far. It would be interesting to look into why. Additionally, it seems as though the number of outages in the years leading up to and away from 2011 seem to follow a slight bell-like shape: growing to a climax and dying off.
-<iframe src="assets/num-outages-by-month.html" width=1100 height=600 frameBorder=0></iframe>
+<iframe src="assets/num-outages-by-month.html" width=800 height=600 frameBorder=0></iframe>
 In this second image we can see the distribution of outages across months of all aforementioned years. Summer seems to have the most outages followed by winter with spring and fall seeming to have the fewest. Could this indicate that summer and winter tend to have the most extreme weather? 
 <br><br>
 So many interesting questions, just from two plots! Let's dive into the relevant sections of EDA now.
 
 ## Outages by State 
 Here we will break down outage data for each state. 
-<iframe src="assets/outage-counts-state.html" width=1100 height=600 frameBorder=0></iframe>
+<iframe src="assets/outage-counts-state.html" width=800 height=600 frameBorder=0></iframe>
 This plot shows the number of outages that were obseved in each state. It is not very interesting as it stands, the results speak for themselves. More outages happen in more populous states. It would be interesting to see the same plot adjusted for population and another adjusted for square footage.
-<iframe src="assets/outages_per_capita_state.html" width=1100 height=600 frameBorder=0></iframe>
+<iframe src="assets/outages_per_capita_state.html" width=800 height=600 frameBorder=0></iframe>
 Ah! Much more interesting. Our first bivariate plot! It seems as though Delaware is has by far the most outages per person. More than double DC (the second highest). Why might Delaware's number of outages be so disproportionately high given their population? 
 <br><br>
 Side Note: Texas and California (the top two of the previous plot) are middle of the pack. This is a good example for the importance of bivariate analysis. Also, note that the second highest is DC which is very clse to Delaware. 
 ## Outages by Category 
 
 ## Outages by Cause Category
-<iframe src="assets/outages-cause.html" width=1100 height=600 frameBorder=0></iframe>
+<iframe src="assets/outages-cause.html" width=800 height=600 frameBorder=0></iframe>
 It seems as though severe weather is to blame for most outages, but it is interesting to see that a substantial portion of outages are intentional attacks. It would be interesting to look into how what types of intentional attack and severe weather are most prevalent. Fist let's also look into the number of intentional attacks that happen per capita (mean of POPULATION of each group of observations). 
-<iframe src="assets/outages-per-captia-cause.html" width=1100 height=600 frameBorder=0></iframe>
+<iframe src="assets/outages-per-captia-cause.html" width=800 height=600 frameBorder=0></iframe>
 Here we can see the same relationship from above, but the difference between the top two bars and the rest seems to be more extreme. Also, the intentional attack bar reaches much closer to the severe weather bar. This may indicate a relationship between per capita effects and intentional attacks, but it's difficult to say as this is an imperfect metric. The POPULATION column measures the total population in the US state where the outage was observed, not the affected population, making this metric very shaky. 
-<iframe src="assets/cause-severe-weather.html" width=1100 height=600 frameBorder=0></iframe>
+<iframe src="assets/cause-severe-weather.html" width=800 height=600 frameBorder=0></iframe>
 It looks as though thunderstorms are responsible for the greatest number of power outages. Could this be because they are the most common storm with destructive potential? 
-<iframe src="assets/cause-intentional-attack.html" width=1100 height=600 frameBorder=0></iframe>
+<iframe src="assets/cause-intentional-attack.html" width=800 height=600 frameBorder=0></iframe>
 It seems as thought most instentional attacks are vandalism. This gives less information than I would have hoped. Next, lets look at the cause breakdowns for each state using a pivot table. 
 
 ## States and Causes Together
-<iframe src="assets/cause-state.html" width=1100 height=600 frameBorder=0></iframe>
+<iframe src="assets/cause-state.html" width=800 height=600 frameBorder=0></iframe>
 This is interesting, we see the same plot from the *Outages by Location* section, but with more context. Let's look at this plot adjusted for population as we did before, but first, lets also look at the distributions of Outage Causes for each State by normalizing the rows.
-<iframe src="assets/cause-state-norm.html" width=1100 height=600 frameBorder=0></iframe>
+<iframe src="assets/cause-state-norm.html" width=800 height=600 frameBorder=0></iframe>
 This confirms our results from above; we are mostly seeing severe weather and intentional attack as the primary causes. Now, let's scale these values to understand the data per capita. 
-<iframe src="assets/cause-state-per-capita.html" width=1100 height=600 frameBorder=0></iframe>
+<iframe src="assets/cause-state-per-capita.html" width=800 height=600 frameBorder=0></iframe>
 Ah! This plot immediately gives us more context for Delaware's outlandish number of outages per capita. There are a disproportionate number of intentional attack related outages in Delaware. In fact, many of the higher ranking states tend to have high instances of intentional attack. Might states with high rates of intentional attack have more outages per person overall? Let's explore this possible trend.  
 <iframe src="assets/intentional-attack-scatter-total-outages.html" width=800 height=600 frameBorder=0></iframe>
 Correlation between total outages per capidta and severe: 0.9542374010674626 <br>
