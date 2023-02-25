@@ -120,11 +120,6 @@ This final step of cleaning was the most painless because the data were already 
 | CLIMATE.REGION        | object         |
 | ANOMALY.LEVEL         | float64        |
 ...
-| POPULATION            | int64          |
-| POPPCT_URBAN          | float64        |
-| POPPCT_UC             | float64        |
-| POPDEN_URBAN          | float64        |
-| POPDEN_UC             | float64        |
 | POPDEN_RURAL          | float64        |
 | AREAPCT_URBAN         | float64        |
 | AREAPCT_UC            | float64        |
