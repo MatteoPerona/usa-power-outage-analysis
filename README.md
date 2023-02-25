@@ -102,3 +102,64 @@ outage = outage.drop(columns=['OUTAGE.START.DATE', 'OUTAGE.START.TIME', 'OUTAGE.
 |          1.43729e+18 |    1.43718e+18 |
 
 The values above are of type datetime64[ns].
+
+
+
+
+
+## Step 3. Checking Column Dtypes and Assessing Null Values
+This final step of cleaning was the most painless because the data were already formatted very cleanly. I first looked through each column's datatype using `python outage.dtypes`: <br>
+| OBS                   | int64          |
+| YEAR                  | int64          |
+| MONTH                 | float64        |
+| U.S._STATE            | object         |
+| POSTAL.CODE           | object         |
+| NERC.REGION           | object         |
+| CLIMATE.REGION        | object         |
+| ANOMALY.LEVEL         | float64        |
+| CLIMATE.CATEGORY      | object         |
+| CAUSE.CATEGORY        | object         |
+| CAUSE.CATEGORY.DETAIL | object         |
+| HURRICANE.NAMES       | object         |
+| OUTAGE.DURATION       | float64        |
+| DEMAND.LOSS.MW        | float64        |
+| CUSTOMERS.AFFECTED    | float64        |
+| RES.PRICE             | float64        |
+| COM.PRICE             | float64        |
+| IND.PRICE             | float64        |
+| TOTAL.PRICE           | float64        |
+| RES.SALES             | float64        |
+| COM.SALES             | float64        |
+| IND.SALES             | float64        |
+| TOTAL.SALES           | float64        |
+| RES.PERCEN            | float64        |
+| COM.PERCEN            | float64        |
+| IND.PERCEN            | float64        |
+| RES.CUSTOMERS         | int64          |
+| COM.CUSTOMERS         | int64          |
+| IND.CUSTOMERS         | int64          |
+| TOTAL.CUSTOMERS       | int64          |
+| RES.CUST.PCT          | float64        |
+| COM.CUST.PCT          | float64        |
+| IND.CUST.PCT          | float64        |
+| PC.REALGSP.STATE      | int64          |
+| PC.REALGSP.USA        | int64          |
+| PC.REALGSP.REL        | float64        |
+| PC.REALGSP.CHANGE     | float64        |
+| UTIL.REALGSP          | int64          |
+| TOTAL.REALGSP         | int64          |
+| UTIL.CONTRI           | float64        |
+| PI.UTIL.OFUSA         | float64        |
+| POPULATION            | int64          |
+| POPPCT_URBAN          | float64        |
+| POPPCT_UC             | float64        |
+| POPDEN_URBAN          | float64        |
+| POPDEN_UC             | float64        |
+| POPDEN_RURAL          | float64        |
+| AREAPCT_URBAN         | float64        |
+| AREAPCT_UC            | float64        |
+| PCT_LAND              | float64        |
+| PCT_WATER_TOT         | float64        |
+| PCT_WATER_INLAND      | float64        |
+| OUTAGE.START          | datetime64[ns] |
+| OUTAGE.RESTORATION    | datetime64[ns] |
