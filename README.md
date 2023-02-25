@@ -23,14 +23,14 @@ Now, this question may sound a little bit contrived at first, but it attempts to
 |   2012 |       6 | Minnesota    | severe weather     |
 |   2015 |       7 | Minnesota    | severe weather     |
 ### Relevant Python Packages 
-`
+```py
 import pandas as pd
 import numpy as np
 import os
 
 import plotly.express as px
 pd.options.plotting.backend = 'plotly'
-`
+```
 >
 > I opted for plotly as pandas' plotting backend over matplotlib since it has a more modern look and it's functions are better suited to this project data visualization needs.
 >  
