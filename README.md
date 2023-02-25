@@ -170,9 +170,10 @@ This is interesting, we see the same plot from the *Outages by Location* section
 This confirms our results from above; we are mostly seeing severe weather and intentional attack as the primary causes. Now, let's scale these values to understand the data per capita. 
 <iframe src="assets/cause-state-per-capita.html" width=1100 height=600 frameBorder=0></iframe>
 Ah! This plot immediately gives us more context for Delaware's outlandish number of outages per capita. There are a disproportionate number of intentional attack related outages in Delaware. In fact, many of the higher ranking states tend to have high instances of intentional attack. Might states with high rates of intentional attack have more outages per person overall? Let's explore this possible trend.  
-<iframe src="assets/intentional-attack-scatter-total-outages.html" width=1100 height=600 frameBorder=0></iframe>
+<iframe src="assets/intentional-attack-scatter-total-outages.html" width=800 height=600 frameBorder=0></iframe>
+Correlation between total outages per capidta and severe: 0.9542374010674626 <br>
 It seems like we're onto something. Hoverver, there could still be confounders. Below I created the same graph but removed Delaware since it seems to be an outlier. 
-<iframe src="assets/intentional-attack-scatter-total-no-delaware.html" width=1100 height=600 frameBorder=0></iframe>
-Correlation between total outages per capidta and severe: 0.8246248841759625
+<iframe src="assets/intentional-attack-scatter-total-no-delaware.html" width=800 height=600 frameBorder=0></iframe>
+Correlation between total outages per capidta and severe: 0.8246248841759625 <br>
 We can see that the correlation still holds, albeit, to a lesser degree. 
 
