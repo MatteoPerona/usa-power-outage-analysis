@@ -203,7 +203,7 @@ One column which jumps out as being NMAR (not missing at random) is the HURRICAN
 ## Missingness Dependency
 In this section we will be showing that the CAUSE.CATEGORY.DETAILS column is MAR dependent on the CAUSE.CATEGORY column using permutation tests. We will also *attempt* and fail at finding a column that it is independent from using permutation tests.
 ### Testing Dependent Case 
-First we will prove depencency between CAUSE.CATEGORY.DETAILS.
+First we will attempt to show depencency between CAUSE.CATEGORY.DETAILS.
 
 #### Hypothesis
 Null Hypothesis: The distribution of CAUSE.CATEGORY.DETAIL is the same when CAUSE.CATEGORY name is missing and when it is not missing<br>
@@ -284,12 +284,97 @@ np.mean(np.array(tvds) >= observed_tvd)
 **Out:** 0.0
 
 #### Conclusions
-P-val is less than our significance level of 0.05, so we reject the null hypothesis. Thet CAUSE.CATEGORY.DETAILS column is dependent on CAUSE.CATEGORY. 
+P-val is less than our significance level of 0.05, so we reject the null hypothesis. The CAUSE.CATEGORY.DETAILS column is likely to be dependent on CAUSE.CATEGORY. 
 
 ### Testing Independent Case
 >
->Note: I could not find an independent case for CAUSE.CATEGORY.DETAILS, so this section will instead go towards proving another instance of dependence. 
+>I could not find a single independent case for CAUSE.CATEGORY.DETAILS with any other column in the outage dataframe.
 > 
 
-
 # Hypothesis Testing
+## Hypothesis 
+Null: number of outages by state per capita comes from the same distribution as <br>
+Alt: States whose most prevalent cause of outages is intentional attack have more outages per capita <br>
+Significance level: 0.05
+
+## Generate Observed Distributions
+### Code 
+```py
+# number of outages by state per capita
+X = outage.groupby(by='U.S._STATE').count().OBS / outage.groupby(by='U.S._STATE').mean().POPULATION
+
+# proportion of outages that are caused by intentional attack by state 
+cause_by_state = pd.pivot_table(outage, columns=['CAUSE.CATEGORY'], index=['U.S._STATE'], values='OBS', aggfunc='count').fillna(0)
+Y = cause_by_state['severe weather'] / cause_by_state.sum(axis=1)
+
+# put X and Y into a df
+df = pd.DataFrame().assign(out_per_cap=X, prop_attack=Y)
+# normalize the df
+df = df / df.sum(axis=0)
+
+# plot the distributions
+fig = df.plot(kind='barh', height=1000, barmode='group', title='Observed Distributions of Outages by State Per Capita and Prop Outages Caused by Intentional Attack')
+fig.write_html('./assets/hyp-test-observed.html', include_plotlyjs='cdn')
+fig 
+```
+### Out Graph
+<iframe src="assets/hyp-test-observed.html" width=800 height=600 frameBorder=0></iframe>
+
+### Out Table
+| U.S._STATE   |   out_per_cap |   prop_attack |
+|:-------------|--------------:|--------------:|
+| Alabama      |    0.00414147 |    0.0367439  |
+| Alaska       |    0.0051098  |    0          |
+| Arizona      |    0.0142132  |    0.00629895 |
+| Arkansas     |    0.0274285  |    0.0176371  |
+| California   |    0.0181408  |    0.0146976  |
+
+### Observed TVD
+```py
+observed_tvd = df.diff(axis=1).iloc[:, -1].abs().sum() / 2
+```
+**Out: **: 0.48123557430777736
+
+## Permutations
+### Code
+```py
+n_repetitions = 500
+shuffled = outage.copy()
+
+tvds = []
+for _ in range(n_repetitions):
+    shuffled['U.S._STATE'] = np.random.permutation(shuffled['U.S._STATE'])
+
+    # number of outages by state per capita
+    X = shuffled.groupby(by='U.S._STATE').count().OBS / shuffled.groupby(by='U.S._STATE').mean().POPULATION
+
+    # proportion of outages that are caused by intentional attack by state 
+    cause_by_state = pd.pivot_table(shuffled, columns=['CAUSE.CATEGORY'], index=['U.S._STATE'], values='OBS', aggfunc='count').fillna(0)
+    Y = cause_by_state['severe weather'] / cause_by_state.sum(axis=1)
+
+    # put X and Y into a df
+    df = pd.DataFrame().assign(out_per_cap=X, prop_attack=Y)
+    # normalize the df
+    df = df / df.sum(axis=0)
+    
+    tvd = df.diff(axis=1).iloc[:, -1].abs().sum() / 2
+    tvds.append(tvd)
+```
+
+### Empirical Distribution of TVD
+<iframe src="assets/empirical-dist-tvd-hyp-test.html" width=800 height=600 frameBorder=0></iframe>
+
+### p-value 
+```py
+np.mean(np.array(tvds) >= observed_tvd)
+```
+**Out: **0.0
+
+
+## Conclusion 
+Our p-value 0.0 is less than our significance level of 0.05, so we reject the null hypothesis. We can conclude that the number of outages per capita and the proportion of outages caused by intentional attack in each state are likely drawn from different distributions. What does this tell us about out original question?
+>
+>Do states with a high number of outages per capita have higher instances of intentional attack?
+>
+While we can say nothing for certain, the permutation tests above indicate that there is likely a relationship between the number of outages per capita and seeing higher instances of intentional attack. 
+
