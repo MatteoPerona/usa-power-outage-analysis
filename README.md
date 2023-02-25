@@ -15,7 +15,7 @@ Now, this question may sound a little bit contrived at first, but it attempts to
 >
 
 
-### DF Head with Relevant Columns
+### DF Head with Relevant Columns <br>
 
 |   YEAR |   MONTH | U.S._STATE   | CAUSE.CATEGORY     |
 |-------:|--------:|:-------------|:-------------------|
@@ -95,7 +95,7 @@ outage['OUTAGE.RESTORATION'] = (outage['OUTAGE.RESTORATION.DATE'] + ", " + outag
 outage = outage.drop(columns=['OUTAGE.START.DATE', 'OUTAGE.START.TIME', 'OUTAGE.RESTORATION.DATE', 'OUTAGE.RESTORATION.TIME'])
 ```
 
-#### Output of these operations:
+#### Output of these operations: <br>
 
 |   OUTAGE.RESTORATION |   OUTAGE.START |
 |---------------------:|---------------:|
@@ -175,7 +175,7 @@ cause_by_state = pd.pivot_table(outage, columns=['CAUSE.CATEGORY'], index=['U.S.
 cause_by_state = cause_by_state.assign(total=cause_by_state.sum(axis=1))
 cause_by_state = cause_by_state.sort_values(by='total').drop(columns=['total'])
 ```
-#### Output dataframe head:
+#### Output dataframe head:<br>
 
 | U.S._STATE   |   equipment failure |   fuel supply emergency |   intentional attack |   islanding |   public appeal |   severe weather |   system operability disruption |
 |:-------------|--------------------:|------------------------:|---------------------:|------------:|----------------:|-----------------:|--------------------------------:|
@@ -238,7 +238,7 @@ df_indep.plot(
     height=1100  
     )
 ```
-#### Output DF
+#### Output DF<br>
 
 | CAUSE.CATEGORY                |     False |      True |
 |:------------------------------|----------:|----------:|
@@ -327,7 +327,7 @@ fig
 ### Out Graph
 <iframe src="assets/hyp-test-observed.html" width=800 height=600 frameBorder=0></iframe>
 
-### Out Table
+### Out Table<br>
 
 | U.S._STATE   |   out_per_cap |   prop_attack |
 |:-------------|--------------:|--------------:|
