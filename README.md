@@ -137,5 +137,7 @@ The EDA I will cover here is abridged to focus on points relevant to the questio
 ### Warm Up
 To start our EDA let's do some univariate analysis on columns that aren't necessarily related to out question to warm up out analytical muscles.
 <iframe src="assets/num-outages-each-year.html" width=800 height=600 frameBorder=0></iframe>
+Here we can see the distribution of outages across years from 2000-2016. It looks like 2011 had the most outages by far. It would be interesting to look into why. Additionally, it seems as though the number of outages in the years leading up to and away from 2011 seem to follow a slight bell-like shape: growing to a climax and dying off.
 <iframe src="assets/num-outages-by-month.html" width=800 height=600 frameBorder=0></iframe>
-[num](assets/num-outages-each-year.html)
+In this second image we can see the distribution of outages across months of all aforementioned years. Summer seems to have the most outages followed by winter with spring and fall seeming to have the fewest. Could this indicate that summer and winter tend to have the most extreme weather?
+
