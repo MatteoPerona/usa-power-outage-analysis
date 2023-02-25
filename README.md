@@ -3,11 +3,8 @@
 # Do states with a high number of outages per capita have higher instances of intentional attack?
 Now, this question may sound a little bit contrived at first, but it attempts to distinguish a relevant issue from the umbrella-term *power outage*. It brings us one step closer to understanding why some states have disproportionately high instances of power outage for their population. I hope this incentivises you enough to read on.
 ### Relevant Information About these Data
->
-> Shape: 1534 rows × 54 columns
->
-> Relevant Columns: U.S._STATE, CAUSE.CATEGORY
->
+Shape: 1534 rows × 54 columns <br>
+Relevant Columns: U.S._STATE, CAUSE.CATEGORY <br>
 ### DF Head with Relevant Columns
 |   YEAR |   MONTH | U.S._STATE   | CAUSE.CATEGORY     |
 |-------:|--------:|:-------------|:-------------------|
@@ -39,7 +36,7 @@ I first imported the data like so:
 outage_fp = os.path.join('data', 'outage.csv')
 outage = pd.read_csv(outage_fp)
 `
-The relevant columns to modify were:
+The relevant columns to modify were: <br>
 | OUTAGE.START.DATE         | OUTAGE.START.TIME   | OUTAGE.RESTORATION.DATE    | OUTAGE.RESTORATION.TIME   |
 |:--------------------------|:--------------------|:---------------------------|:--------------------------|
 | Friday, July 01, 2011     | 5:00:00 PM          | Sunday, July 03, 2011      | 8:00:00 PM                |
