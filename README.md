@@ -134,7 +134,7 @@ I went through each column and made sure that the data types were appropriate fo
 The EDA I will cover here is abridged to focus on points relevant to the question posed above. If you are curious please check out the notebook in my repo. 
 
 ## Warm Up
-To start our EDA let's do some univariate analysis on columns that aren't necessarily related to out question to warm up out analytical muscles.
+To start our EDA let's do some univariate analysis on columns that aren't necessarily related to out question to warm up our analytical muscles.
 <iframe src="assets/num-outages-each-year.html" width=800 height=600 frameBorder=0></iframe>
 Here we can see the distribution of outages across years from 2000-2016. It looks like 2011 had the most outages by far. It would be interesting to look into why. Additionally, it seems as though the number of outages in the years leading up to and away from 2011 seem to follow a slight bell-like shape: growing to a climax and dying off.
 <iframe src="assets/num-outages-by-month.html" width=800 height=600 frameBorder=0></iframe>
@@ -153,8 +153,10 @@ Side Note: Texas and California (the top two of the previous plot) are middle of
 
 
 ## Outages by Cause Category
+Breaking down the distributions for the causes of each observed power outage. 
+
 <iframe src="assets/outages-cause.html" width=800 height=600 frameBorder=0></iframe>
-It seems as though severe weather is to blame for most outages, but it is interesting to see that a substantial portion of outages are intentional attacks. It would be interesting to look into how what types of intentional attack and severe weather are most prevalent. Fist let's also look into the number of intentional attacks that happen per capita (mean of POPULATION of each group of observations). 
+It seems as though severe weather is to blame for most outages, but it is interesting to see that a substantial portion of outages are intentional attacks. It would be interesting to look into which types of intentional attack and severe weather are most prevalent. Fist let's also look into the number of intentional attacks that happen per capita (mean of POPULATION of each group of observations). 
 <iframe src="assets/outages-per-captia-cause.html" width=800 height=600 frameBorder=0></iframe>
 Here we can see the same relationship from above, but the difference between the top two bars and the rest seems to be more extreme. Also, the intentional attack bar reaches much closer to the severe weather bar. This may indicate a relationship between per capita effects and intentional attacks, but it's difficult to say as this is an imperfect metric. The POPULATION column measures the total population in the US state where the outage was observed, not the affected population, making this metric very shaky. 
 <iframe src="assets/cause-severe-weather.html" width=800 height=600 frameBorder=0></iframe>
@@ -187,17 +189,32 @@ This confirms our results from above; we are mostly seeing severe weather and in
 <iframe src="assets/cause-state-per-capita.html" width=800 height=600 frameBorder=0></iframe>
 Ah! This plot immediately gives us more context for Delaware's outlandish number of outages per capita. There are a disproportionate number of intentional attack related outages in Delaware. In fact, many of the higher ranking states tend to have high instances of intentional attack. Might states with high rates of intentional attack have more outages per person overall? Let's explore this possible trend.  
 <iframe src="assets/intentional-attack-scatter-total-outages.html" width=800 height=600 frameBorder=0></iframe>
-Correlation between total outages per capidta and severe: 0.9542374010674626 <br>
+Correlation between total outages per capita and severe: 0.9542374010674626 <br>
 It seems like we're onto something. Hoverver, there could still be confounders. Below I created the same graph but removed Delaware since it seems to be an outlier. 
 <iframe src="assets/intentional-attack-scatter-total-no-delaware.html" width=800 height=600 frameBorder=0></iframe>
-Correlation between total outages per capidta and severe: 0.8246248841759625 <br>
-We can see that the correlation still holds, albeit, to a lesser degree. 
+Correlation between total outages per capita and severe: 0.8246248841759625 <br>
+We can see that the correlation still holds, albeit, to a lesser degree. <br><br>
+This is a good point to move on from EDA since we've found our particular area of iterest: the relationship between outages per capita and the proportion of intentional attacks in a state. In the next section I will cover missingness of values in the dataset. If you are more interested the answer to my question skip to the *Hypothesis Testing* section where I perform a permutation test in an attempt to find an answer. 
 
 
 # Assessment of Missingness
+In this section, I will describe the missingness of a few key columns in our data. 
 ## Visualize Missingness
 <iframe src="assets/missing-values-by-column.html" width=800 height=600 frameBorder=0></iframe>
-The plot above shows the number of missing values in each column in outages which has missing values. 
+The plot above shows the number of missing values in each column in outages which has missing values. Here's the code to generate it for those of you that are curious:
+
+```py
+# counts all null values in each column outages
+null_counts = outage.isna().sum().sort_values()
+# plots hbar of missing value conts for each column with missing values
+fig = null_counts[null_counts > 0].plot(
+    kind='barh', 
+    width=1100, 
+    height=600,
+    title='Number of Missing Values by Column in the Outage Dataframe',
+)
+```
+
 
 ## NMAR Analysis
 One column which jumps out as being NMAR (not missing at random) is the HURRICANE.NAMES column since when collecting the data if the outage did not occur as a result of a hurricane there will not be a name to report. In this way thet missingness is dependent of the column itself and also on columns like CAUSE.CATEGORY.DETAILS of CAUSE.CATEGORY which both contain information about the cause of the outage. 
