@@ -1,4 +1,4 @@
-# USA Power Outage Analysis
+# Introduction
 [The dataset I will be using](https://engineering.purdue.edu/LASCI/research-data/outages/outagerisks) covers major outages observed in the continental U.S. These data contain geographical location, regional climatic info, land-use characteristics, electricity consumption patterns, and economic characteristis. I will be using these data to answer a fundamental question about outages in the continental United States. 
 
 
@@ -36,7 +36,7 @@ pd.options.plotting.backend = 'plotly'
 >  
 
 
-# Data Cleaning
+# Data Cleaning and EDA
 Fortunately, data cleaning was relatively simple for this project. 
 
 ## Step 1. Pruning by Hand 
@@ -130,3 +130,11 @@ This final step of cleaning was the most painless because the data were already 
 | OUTAGE.RESTORATION    | datetime64[ns] |
 
 I went through each column and made sure that the data types were appropriate for the values in each. I did not have to make any changes to datatypes. Next, I looked through the unique values for each column using `outage.apply(lambda col: col.unique())` to find any nan placeholders like '-' and to, again, make sure that the data types for each column suited the values. I would include the output here, but it was far too long and unappealing (please visit the notebook if you are curious).
+
+# EDA
+The EDA I will cover here is abridged to focus on points relevant to the question posed above. If you are curious please check out the notebook in my repo. 
+
+### Warm Up
+To start our EDA let's do some univariate analysis on columns that aren't necessarily related to out question to warm up out analytical muscles.
+<iframe src="assets/num-outages-each-year.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/num-outages-by-month.html" width=800 height=600 frameBorder=0></iframe>
