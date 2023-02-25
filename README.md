@@ -24,6 +24,8 @@ Now, this question may sound a little bit contrived at first, but it attempts to
 |   2010 |      10 | Minnesota    | severe weather     |
 |   2012 |       6 | Minnesota    | severe weather     |
 |   2015 |       7 | Minnesota    | severe weather     |
+
+
 ### Relevant Python Packages 
 ```py
 import pandas as pd
@@ -184,6 +186,8 @@ cause_by_state = cause_by_state.sort_values(by='total').drop(columns=['total'])
 | North Dakota |                   0 |                       1 |                    0 |           0 |               1 |                0 |                               0 |
 | Montana      |                   0 |                       0 |                    1 |           2 |               0 |                0 |                               0 |
 | Mississippi  |                   0 |                       0 |                    3 |           0 |               0 |                0 |                               1 |
+
+
 <iframe src="assets/cause-state.html" width=800 height=600 frameBorder=0></iframe>
 This is interesting, we see the same plot from the *Outages by Location* section, but with more context. Let's look at this plot adjusted for population as we did before, but first, lets also look at the distributions of Outage Causes for each State by normalizing the rows.
 <iframe src="assets/cause-state-norm.html" width=800 height=600 frameBorder=0></iframe>
@@ -249,6 +253,8 @@ df_indep.plot(
 | public appeal                 | 0         | 0.146497  |
 | severe weather                | 0.541863  | 0.397028  |
 | system operability disruption | 0.0348071 | 0.191083  |
+
+
 #### Output Plot
 <iframe src="assets/observed-dist-dependent.html" width=800 height=500 frameBorder=0></iframe>
 
