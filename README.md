@@ -1,4 +1,5 @@
 # Analyzing Power Outages in The Continental US
+### Matteo Perona
 [The dataset I will be using](https://engineering.purdue.edu/LASCI/research-data/outages/outagerisks) covers major outages observed in the continental U.S. These data contain geographical location, regional climatic info, land-use characteristics, electricity consumption patterns, and economic characteristis. I will be using these data to answer a fundamental question about outages in the continental United States. 
 
 
