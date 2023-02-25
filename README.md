@@ -49,23 +49,30 @@ The relevant columns to modify were: <br>
 | Tuesday, June 19, 2012    | 4:30:00 AM          | Wednesday, June 20, 2012   | 11:00:00 PM               |
 | Saturday, July 18, 2015   | 2:00:00 AM          | Sunday, July 19, 2015      | 7:00:00 AM                |
 
-I wanted to combine the outage start and restoration dates with their respective times and convert them to timestamps assigning these new series to two columns -- 'OUTAGE.START' and 'OUTAGE.RESTORATION' respectively -- while dropping the old ones. The process went as follows.
-First, I added the series' date and time strings together:
-`
+I wanted to combine the outage start and restoration dates with their respective times and convert them to timestamps assigning these new series to two columns -- 'OUTAGE.START' and 'OUTAGE.RESTORATION' respectively -- while dropping the old ones. The process went as follows.<br><br>
+
+
+##### First, I added the series' date and time strings together:
+``` python
 (outage['OUTAGE.START.DATE'] + ", " + outage['OUTAGE.START.TIME'])
-`
-Next, I applied a pd.Timestamp() to each element of the resulting series to convert each string to a timestamp:
-`
+```
+
+#### Next, I applied a pd.Timestamp() to each element of the resulting series to convert each string to a timestamp:
+```python
 .apply(lambda x: pd.Timestamp(x))
-`
-Finally, we assign the new steries to new columns and drop the old columns from out original dataframe:
-`
+```
+
+
+#### Finally, we assign the new steries to new columns and drop the old columns from out original dataframe:
+```python
 outage['OUTAGE.START'] = ...
 outage['OUTAGE.RESTORATION'] = ...
 outage = outage.drop(columns=['OUTAGE.START.DATE', 'OUTAGE.START.TIME', 'OUTAGE.RESTORATION.DATE', 'OUTAGE.RESTORATION.TIME'])
-`
-Overall, the operations follow like so:
-`
+```
+
+
+#### Overall, the operations follow like so:
+```python
 outage['OUTAGE.START'] = (outage['OUTAGE.START.DATE'] + ", " + outage['OUTAGE.START.TIME']) \
     .apply(lambda x: pd.Timestamp(x))
 
@@ -73,4 +80,5 @@ outage['OUTAGE.RESTORATION'] = (outage['OUTAGE.RESTORATION.DATE'] + ", " + outag
     .apply(lambda x: pd.Timestamp(x))
 
 outage = outage.drop(columns=['OUTAGE.START.DATE', 'OUTAGE.START.TIME', 'OUTAGE.RESTORATION.DATE', 'OUTAGE.RESTORATION.TIME'])
-`
+```
+
