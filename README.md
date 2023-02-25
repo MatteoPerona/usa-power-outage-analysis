@@ -108,11 +108,8 @@ The values above are of type datetime64[ns].
 
 
 ## Step 3. Checking Column Dtypes and Assessing Null Values
-This final step of cleaning was the most painless because the data were already formatted very cleanly. I first looked through each column's datatype using 
-```python 
-outage.dtypes
-```
-: <br>
+This final step of cleaning was the most painless because the data were already formatted very cleanly. I first looked through each column's datatype using `outage.dtypes`: <br>
+|                       |                |
 |:----------------------|:---------------|
 | OBS                   | int64          |
 | YEAR                  | int64          |
