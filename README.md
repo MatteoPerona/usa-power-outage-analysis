@@ -16,6 +16,7 @@ Now, this question may sound a little bit contrived at first, but it attempts to
 
 
 ### DF Head with Relevant Columns
+
 |   YEAR |   MONTH | U.S._STATE   | CAUSE.CATEGORY     |
 |-------:|--------:|:-------------|:-------------------|
 |   2011 |       7 | Minnesota    | severe weather     |
@@ -52,6 +53,7 @@ outage = pd.read_csv(outage_fp)
 ```
 
 #### The relevant columns to modify were: <br>
+
 | OUTAGE.START.DATE         | OUTAGE.START.TIME   | OUTAGE.RESTORATION.DATE    | OUTAGE.RESTORATION.TIME   |
 |:--------------------------|:--------------------|:---------------------------|:--------------------------|
 | Friday, July 01, 2011     | 5:00:00 PM          | Sunday, July 03, 2011      | 8:00:00 PM                |
@@ -94,6 +96,7 @@ outage = outage.drop(columns=['OUTAGE.START.DATE', 'OUTAGE.START.TIME', 'OUTAGE.
 ```
 
 #### Output of these operations:
+
 |   OUTAGE.RESTORATION |   OUTAGE.START |
 |---------------------:|---------------:|
 |          1.30972e+18 |    1.30954e+18 |
@@ -110,6 +113,7 @@ The values above are of type datetime64[ns].
 
 ## Step 3. Checking Column Dtypes and Assessing Null Values
 This final step of cleaning was the most painless because the data were already formatted very cleanly. I first looked through each column's datatype using `outage.dtypes`: <br>
+
 |                       |                |
 |:----------------------|:---------------|
 | OBS                   | int64          |
@@ -172,6 +176,7 @@ cause_by_state = cause_by_state.assign(total=cause_by_state.sum(axis=1))
 cause_by_state = cause_by_state.sort_values(by='total').drop(columns=['total'])
 ```
 #### Output dataframe head:
+
 | U.S._STATE   |   equipment failure |   fuel supply emergency |   intentional attack |   islanding |   public appeal |   severe weather |   system operability disruption |
 |:-------------|--------------------:|------------------------:|---------------------:|------------:|----------------:|-----------------:|--------------------------------:|
 | Alaska       |                   1 |                       0 |                    0 |           0 |               0 |                0 |                               0 |
@@ -234,6 +239,7 @@ df_indep.plot(
     )
 ```
 #### Output DF
+
 | CAUSE.CATEGORY                |     False |      True |
 |:------------------------------|----------:|----------:|
 | equipment failure             | 0.0451552 | 0.0254777 |
@@ -322,6 +328,7 @@ fig
 <iframe src="assets/hyp-test-observed.html" width=800 height=600 frameBorder=0></iframe>
 
 ### Out Table
+
 | U.S._STATE   |   out_per_cap |   prop_attack |
 |:-------------|--------------:|--------------:|
 | Alabama      |    0.00414147 |    0.0367439  |
