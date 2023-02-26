@@ -226,9 +226,9 @@ In this section, we will try to show that the CAUSE.CATEGORY.DETAILS column is M
 First we will attempt to show depencency between CAUSE.CATEGORY.DETAILS and CAUSE.CATEGORY.
 
 #### Hypothesis
-Null Hypothesis: The distribution of CAUSE.CATEGORY is the same when CAUSE.CATEGORY.DETAIL name is missing and when it is not missing<br>
-Alt Hypothesis: The distribution of CAUSE.CATEGORY is different when CAUSE.CATEGORY.DETAIL name is missing as opposed to when it is not missing <br>
-Significance Level: 0.05
+**Null Hypothesis:** The distribution of CAUSE.CATEGORY is the same when CAUSE.CATEGORY.DETAIL name is missing and when it is not missing<br>
+**Alt Hypothesis:** The distribution of CAUSE.CATEGORY is different when CAUSE.CATEGORY.DETAIL name is missing as opposed to when it is not missing <br>
+**Significance Level:** 0.05
 
 #### Code for generating the observed distributions 
 ```py
@@ -324,9 +324,9 @@ P-val is less than our significance level of 0.05, so we reject the null hypothe
 In this section I will be attempting to answer my original question: Do states with a high number of outages per capita have higher instances of intentional attack? I will be using a permutation show that it is very unlikely for *outages per capita by state* and *proportion of outages cause by intentional attack by state* to come from the same distribution. Hence, there is a likely a relationship between the number of outages per capita and the proportion of outages cause by intentional attack in each state. <br>
 Note: I already went over how permutation tests work in the previous section so I will let the plots do most of the talking in this last section. 
 ## Hypothesis 
-Null: The number of outages by state per capita comes from the same distribution as the proportion of outages that are caused by intentional attacks by state. <br>
-Alt: The number of outages by state per capita and the proportion of outages that are caused by intentional attacks by state come from different distributions. <br>
-Significance level: 0.05
+**Null:** The number of outages by state per capita comes from the same distribution as the proportion of outages that are caused by intentional attacks by state. <br>
+**Alt:** The number of outages by state per capita and the proportion of outages that are caused by intentional attacks by state come from different distributions. <br>
+**Significance level:** 0.05
 
 ## Generate Observed Distributions
 ### Code 
@@ -404,7 +404,7 @@ The graph above
 ```py
 np.mean(np.array(tvds) >= observed_tvd)
 ```
-**Out: **0.0
+**Out:** 0.0
 
 
 ## Conclusion 
