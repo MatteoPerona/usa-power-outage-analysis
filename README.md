@@ -217,16 +217,18 @@ fig = null_counts[null_counts > 0].plot(
 
 
 ## NMAR Analysis
-One column which jumps out as being NMAR (not missing at random) is the HURRICANE.NAMES column since when collecting the data if the outage did not occur as a result of a hurricane there will not be a name to report. In this way thet missingness is dependent of the column itself and also on columns like CAUSE.CATEGORY.DETAILS of CAUSE.CATEGORY which both contain information about the cause of the outage. 
+You might be asking yourself: Why are there so many missing values in the HURRICANE.NAMES column? Well, one phenomenon that could explain this is NMAR (not missing at random): when reason for missingness in a column can be determined by looking at the column itself. The HURRICANE.NAMES column jumps out as being NMAR since, when collecting the data, if the outage did not occur as a result of a hurricane there will not be a name to report. In this way, the missingness is dependent on the column itself. Note: It is also on columns like CAUSE.CATEGORY.DETAILS of CAUSE.CATEGORY which both contain information about the cause of the outage, but -- crucially -- the missing values in this column can be described by looking at the column itself. 
 
 ## Missingness Dependency
-In this section we will be showing that the CAUSE.CATEGORY.DETAILS column is MAR dependent on the CAUSE.CATEGORY column using permutation tests. We will also *attempt* and fail at finding a column that it is independent from using permutation tests.
+In this section, we will try to show that the CAUSE.CATEGORY.DETAILS column is MAR dependent on the CAUSE.CATEGORY column using permutation tests. We will also *attempt* and fail at finding a column that it is independent from CAUSE.CATEGORY.DETAILS using permutation tests.
+
 ### Testing Dependent Case 
-First we will attempt to show depencency between CAUSE.CATEGORY.DETAILS.
+First we will attempt to show depencency between CAUSE.CATEGORY.DETAILS and CAUSE.CATEGORY.
 
 #### Hypothesis
-Null Hypothesis: The distribution of CAUSE.CATEGORY.DETAIL is the same when CAUSE.CATEGORY name is missing and when it is not missing<br>
-Alt Hypothesis: The distribution of CAUSE.CATEGORY.DETAIL is different when CAUSE.CATEGORY name is missing as opposed to when it is not missing
+Null Hypothesis: The distribution of CAUSE.CATEGORY is the same when CAUSE.CATEGORY.DETAIL name is missing and when it is not missing<br>
+Alt Hypothesis: The distribution of CAUSE.CATEGORY is different when CAUSE.CATEGORY.DETAIL name is missing as opposed to when it is not missing <br>
+Significance Level: 0.05
 
 #### Code for generating the observed distributions 
 ```py
@@ -267,14 +269,18 @@ df_indep.plot(
 #### Output Plot
 <iframe src="assets/observed-dist-dependent.html" width=800 height=500 frameBorder=0></iframe>
 
+Here, we can see the observed distributions of both missing and non missing CAUSE.CATEGORY.DETAILS across CAUSE.CATEGORY.
+
 #### Calculate Observed TVD
 ```py
 observed_tvd = df_indep.diff(axis=1).iloc[:, -1].abs().sum() / 2
 observed_tvd
 ```
+We use total variation distance as our test statistic since it is an effective way to measure the difference between two distributions. Read more about TVD [here](https://en.wikipedia.org/wiki/Total_variation_distance_of_probability_measures)
 **Observed TVD**: 0.41067323382726845
 
 #### Simulation
+The python script below shuffles the CAUSE.CATEGORY column n_repetitions times. Each time, it calculates the permutation's TVD and adds it to the tvds list. This gives us an idea of what the TVD's would look like if the distrinution of null/non-null values were completely random. 
 ```py
 # number of times to repeat permutations and calculate TVD
 n_repetitions = 500
@@ -298,6 +304,7 @@ for _ in range(n_repetitions):
 ```
 #### Plotting Empirical Distribution of Calculated TVDs
 <iframe src="assets/empirical-distribution-TVD-dependent.html" width=800 height=600 frameBorder=0></iframe>
+Here, we can see that our observed total variation distance is far outside the range that we would expect equivalent distributions to lie in. 
 
 #### Calculating p-value
 ```py
@@ -314,9 +321,11 @@ P-val is less than our significance level of 0.05, so we reject the null hypothe
 > 
 
 # Hypothesis Testing
+In this section I will be attempting to answer my original question: Do states with a high number of outages per capita have higher instances of intentional attack? I will be using a permutation show that it is very unlikely for *outages per capita by state* and *proportion of outages cause by intentional attack by state* to come from the same distribution. Hence, there is a likely a relationship between the number of outages per capita and the proportion of outages cause by intentional attack in each state. <br>
+Note: I already went over how permutation tests work in the previous section so I will let the plots do most of the talking in this last section. 
 ## Hypothesis 
-Null: number of outages by state per capita comes from the same distribution as <br>
-Alt: States whose most prevalent cause of outages is intentional attack have more outages per capita <br>
+Null: The number of outages by state per capita comes from the same distribution as the proportion of outages that are caused by intentional attacks by state. <br>
+Alt: The number of outages by state per capita and the proportion of outages that are caused by intentional attacks by state come from different distributions. <br>
 Significance level: 0.05
 
 ## Generate Observed Distributions
@@ -342,7 +351,9 @@ fig
 ### Out Graph
 <iframe src="assets/hyp-test-observed.html" width=800 height=600 frameBorder=0></iframe>
 
-### Out Table<br>
+The plot above shows the distributions of outages per capita and proportion of outages caused by intentional attack by state (each normalized).
+
+### Out Table Head <br>
 
 | U.S._STATE   |   out_per_cap |   prop_attack |
 |:-------------|--------------:|--------------:|
@@ -356,7 +367,7 @@ fig
 ```py
 observed_tvd = df.diff(axis=1).iloc[:, -1].abs().sum() / 2
 ```
-**Out:**: 0.48123557430777736
+**Out:** 0.48123557430777736
 
 ## Permutations
 ### Code
@@ -387,6 +398,8 @@ for _ in range(n_repetitions):
 ### Empirical Distribution of TVD
 <iframe src="assets/empirical-dist-tvd-hyp-test.html" width=800 height=600 frameBorder=0></iframe>
 
+The graph above
+
 ### p-value 
 ```py
 np.mean(np.array(tvds) >= observed_tvd)
@@ -400,5 +413,5 @@ Our p-value 0.0 is less than our significance level of 0.05, so we reject the nu
 >Do states with a high number of outages per capita have higher instances of intentional attack?
 >
 
-While we can say nothing for certain, the permutation tests above indicate that there is likely a relationship between the number of outages per capita and seeing higher instances of intentional attack. 
+While we can say nothing for certain, the permutation tests above indicate that there is likely a relationship between the number of outages per capita and seeing higher instances of intentional attack. In the future I hope to explore this subject in greater depth, and hopefully gain some insight into why Delaware's proportion of outages caused by intentional attack and their outage per capita are both so high compared to their respecitve means. 
 
